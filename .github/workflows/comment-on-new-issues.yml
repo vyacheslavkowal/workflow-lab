@@ -12,3 +12,19 @@ jobs:
         run: echo '${{ toJSON(github.event) }}' | jq
         shell: bash
 
+# Add everything below this line
+  create-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Comment on new issue"
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.issue.number }}     # Uses the hierarchy of the event to get the issue number
+          body: |
+            This is a multi-line test comment
+            - With GitHub **Markdown** :sparkles:
+            - Created by [create-or-update-comment][1]
+
+            [1]: https://github.com/peter-evans/create-or-update-comment
+          reactions: eyes
+
